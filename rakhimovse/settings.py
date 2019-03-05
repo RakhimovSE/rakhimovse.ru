@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rakhimovse.api.AnswerOrPayBot.apps.AnswerorpaybotConfig'
 ]
 
 MIDDLEWARE = [
