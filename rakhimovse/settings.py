@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rakhimovse.api.AnswerOrPayBot.apps.AnswerorpaybotConfig'
+    'rakhimovse.api.answerorpaybot.apps.AnswerorpaybotConfig',
+    'rakhimovse.api.datradebot.apps.DatradebotConfig',
 ]
 
 MIDDLEWARE = [
@@ -84,11 +85,22 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '',
     },
+    'datradebot_db': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'datradebot_db',
+        'USER': 'root',
+        'PASSWORD': '8dT1ajHJlzhY',
+        'HOST': 'localhost',
+        'PORT': '',
+    },
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # },
 }
+
+
+DATABASE_ROUTERS = ['rakhimovse.routers.DatradebotRouter']
 
 
 # Password validation

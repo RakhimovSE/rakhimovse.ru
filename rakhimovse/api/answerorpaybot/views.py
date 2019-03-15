@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from telegram import Update
 
-from rakhimovse.api.AnswerOrPayBot.apps import AnswerorpaybotConfig
+from rakhimovse.api.answerorpaybot.apps import AnswerorpaybotConfig
 
 
 @api_view(['POST'])
