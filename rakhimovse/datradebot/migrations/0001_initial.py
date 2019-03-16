@@ -29,12 +29,12 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(max_length=255)),
                 ('wallet', models.FloatField(default=0)),
                 ('registered', models.DateTimeField(auto_now_add=True)),
-                ('invited_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='datradebot.User')),
+                ('invited_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='rakhimovse.datradebot.User')),
             ],
         ),
         migrations.AddField(
             model_name='subscription',
             name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='datradebot.User'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rakhimovse.datradebot.User'),
         ),
     ]

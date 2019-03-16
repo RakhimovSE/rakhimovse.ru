@@ -18,7 +18,6 @@ class AnswerorpaybotConfig(AppConfig):
         logging.basicConfig(
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             level=logging.INFO,
-            filename='answerorpaybot.log',
         )
 
         bot = Bot(ANSWERORPAYBOT_TOKEN)

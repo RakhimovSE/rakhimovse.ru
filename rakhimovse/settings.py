@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rakhimovse.api.answerorpaybot.apps.AnswerorpaybotConfig',
-    'rakhimovse.api.datradebot.apps.DatradebotConfig',
+    'rakhimovse.datradebot.apps.DatradebotConfig',
 ]
 
 MIDDLEWARE = [
@@ -133,7 +133,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

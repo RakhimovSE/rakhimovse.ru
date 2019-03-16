@@ -18,7 +18,7 @@ from django.urls import include, path
 
 from . import views, telegram_bot
 from .api.answerorpaybot.views import webhook as answerorpay_webhook
-from .api.datradebot.views import webhook as datradebot_webhook
+from rakhimovse.datradebot.views import webhook as datradebot_webhook
 
 urlpatterns = [
     path(telegram_bot.ANSWERORPAYBOT_TOKEN, answerorpay_webhook),

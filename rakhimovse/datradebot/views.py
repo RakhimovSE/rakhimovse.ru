@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from telegram import Update
 
-from rakhimovse.api.datradebot.apps import DatradebotConfig
+from rakhimovse.datradebot.apps import DatradebotConfig
 
 
 @api_view(['POST'])
