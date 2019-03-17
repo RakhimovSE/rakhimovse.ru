@@ -29,7 +29,7 @@ class DatradebotConfig(AppConfig):
 
         bot = Bot(DATRADEBOT_TOKEN)
         bot.set_webhook('https://rakhimovse.ru/{}'.format(DATRADEBOT_TOKEN))
-        dispatcher = Dispatcher(bot, None, workers=0)
+        dispatcher = Dispatcher(bot, None, workers=0, use_context=True)
         bot_handlers = [
             CommandHandler('start', h.start_command_handler, pass_args=True),
             CallbackQueryHandler(h.main_menu_callback_handler, pattern=r'^main:menu$'),
@@ -42,7 +42,7 @@ class DatradebotConfig(AppConfig):
                 states={
                     h.TYPING_PROMO: [MessageHandler(Filters.text, h.typing_promo_message_handler)]
                 },
-                fallbacks=[],
+                fallbacks=[CommandHandler('cancel', h.cancel_command_handler)],
             ),
             CallbackQueryHandler(h.settings_menu_callback_handler, pattern=r'^settings:menu$'),
             CallbackQueryHandler(h.unknown_callback_handler, pattern=r''),

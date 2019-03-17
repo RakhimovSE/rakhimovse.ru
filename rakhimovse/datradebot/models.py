@@ -1,6 +1,6 @@
 from dateutil.relativedelta import relativedelta
 from django.db import models, transaction
-from django.utils import timezone
+from datetime import datetime
 import random
 import string
 
@@ -16,17 +16,18 @@ class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     wallet = models.FloatField(default=0)
-    invited_by = models.ForeignKey('self', models.SET_NULL, null=True, blank=True)
+    inviter = models.ForeignKey('self', models.SET_NULL, null=True, blank=True)
     registered = models.DateTimeField(auto_now_add=True)
 
     @property
     def subscription_active_until(self):
         subscriptions = self.subscription_set.all()
-        return subscriptions.aggregate(models.Max('active_until'))['active_until__max']
+        active_until = subscriptions.aggregate(models.Max('active_until'))['active_until__max']
+        return active_until if active_until else datetime.now()
 
     @property
     def is_subscription_active(self):
-        return timezone.now() <= self.subscription_active_until()
+        return datetime.now() <= self.subscription_active_until()
 
 
 class Subscription(models.Model):
@@ -53,12 +54,12 @@ class Promo(models.Model):
     id = models.CharField(primary_key=True, max_length=PROMO_LENGTH, default=get_promo)
     period = models.CharField(max_length=15, choices=PERIOD_CHOICES, default=DAY7)
     subscription = models.OneToOneField(Subscription, models.CASCADE, null=True)
-    active_until = models.DateTimeField(default=timezone.datetime.max)
+    active_until = models.DateTimeField(default=datetime.max)
     created = models.DateTimeField(auto_now_add=True)
 
     @property
     def is_active(self):
-        return timezone.now() <= self.active_until
+        return datetime.now() <= self.active_until
 
     def issue(self, user):
         # TODO Что делать, если уже имеется активная подписка?
@@ -74,7 +75,7 @@ class Promo(models.Model):
             delta = relativedelta(months=12)
         else:
             raise ValueError
-        active_until = timezone.now() + delta
+        active_until = user.subscription_active_until + delta
 
         with transaction.atomic():
             self.subscription = Subscription.objects.create(user=user, active_until=active_until)
