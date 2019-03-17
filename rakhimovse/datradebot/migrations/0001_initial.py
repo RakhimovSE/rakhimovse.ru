@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Promo',
             fields=[
-                ('id', models.CharField(default=rakhimovse.datradebot.models.get_promo, max_length=8, primary_key=True, serialize=False)),
+                ('id', models.CharField(default=rakhimovse.datradebot.models.generate_promo, max_length=8, primary_key=True, serialize=False)),
                 ('period', models.CharField(choices=[('day7', '7 days'), ('month1', '1 month'), ('month3', '3 months'), ('month6', '6 months'), ('month12', '12 months')], default='day7', max_length=15)),
                 ('active_until', models.DateTimeField(default=datetime.datetime(9999, 12, 31, 23, 59, 59, 999999))),
                 ('created', models.DateTimeField(auto_now_add=True)),

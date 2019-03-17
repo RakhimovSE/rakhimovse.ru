@@ -24,8 +24,9 @@ class MQBot(Bot):
         return super(MQBot, self).send_message(*args, **kwargs)
 
 
-ANSWERORPAYBOT_TOKEN = 'PUT_YOUR_TOKEN_HERE'
-DATRADEBOT_TOKEN = 'PUT_YOUR_TOKEN_HERE'
+DATRADEBOT_TOKEN = ''
+COINBASE_API_KEY = ''
+COINBASE_API_SECRET = ''
 
 
 def index(request):

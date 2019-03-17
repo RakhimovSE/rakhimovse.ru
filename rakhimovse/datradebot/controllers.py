@@ -1,7 +1,9 @@
 from django.db import transaction
 from datetime import datetime
 import logging
+from django.template.loader import render_to_string
 from rakhimovse.datradebot import keyboards
+from rakhimovse.datradebot.helpers import CurrencyEnum
 
 
 def send_start_message(update, context):
@@ -94,7 +96,43 @@ def activate_promo(update, context):
     user, _ = get_or_create_user(update.message)
     promo.issue(user)
     text = 'Промокод принят!\nПодписка действительна до {}'.format(
-        datetime.strftime(user.subscription_active_until, '%d.%m.%Y')
+        datetime.strftime(user.subscription_active_until, '%d.%m.%Y'),
     )
     context.bot.send_message(update.message.chat_id, text)
     return True
+
+
+def get_subscription_info(user):
+    days_left = user.subscription_days_left
+    if days_left == -1:
+        text = 'Подписка не активна'
+    else:
+        text = 'Подписка действительна до {}\nОсталось дней: {}'.format(
+            datetime.strftime(user.subscription_active_until, '%d.%m.%Y'),
+            user.subscription_days_left,
+        )
+    return text
+
+
+def get_partner_info():
+    return render_to_string('partner-info.wiki')
+
+
+def get_exchange_info():
+    from rakhimovse.datradebot.apps import DatradebotConfig
+
+    lines = []
+    currency_pairs = [
+        (CurrencyEnum.BTC, CurrencyEnum.USD),
+        (CurrencyEnum.BTC, CurrencyEnum.RUB),
+        (CurrencyEnum.ETH, CurrencyEnum.USD),
+        (CurrencyEnum.ETH, CurrencyEnum.RUB),
+    ]
+    for c1, c2 in currency_pairs:
+        currency_pair = '{}-{}'.format(c1, c2)
+        try:
+            response = DatradebotConfig.coinbase_client.get_spot_price(currency_pair=currency_pair)
+            lines.append('{}: {}'.format(currency_pair, response.amount))
+        except:
+            pass
+    return '\n'.join(lines) if lines else 'Не удалось получить информацию по курсам валют'

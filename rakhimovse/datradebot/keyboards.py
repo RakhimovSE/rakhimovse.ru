@@ -30,8 +30,8 @@ def get_main_menu_keyboard():
 def get_payment_menu_keyboard():
     mapping = [
         [
-            ('exchange', 'Курсы валют'),
-            ('payment_info', 'О подписке'),
+            ('exchange_info', 'Курсы валют'),
+            ('subscription_info', 'О подписке'),
         ],
         [
             ('pay_1month', '1 месяц'),

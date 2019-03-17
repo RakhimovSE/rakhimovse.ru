@@ -5,7 +5,7 @@ import random
 import string
 
 
-def get_promo():
+def generate_promo():
     symbols = string.digits + string.ascii_uppercase
     return ''.join([random.choice(symbols) for i in range(Promo.PROMO_LENGTH)])
 
@@ -26,8 +26,8 @@ class User(models.Model):
         return active_until if active_until else datetime.now()
 
     @property
-    def is_subscription_active(self):
-        return datetime.now() <= self.subscription_active_until()
+    def subscription_days_left(self):
+        return max((self.subscription_active_until - datetime.now()).days, 0)
 
 
 class Subscription(models.Model):
@@ -51,7 +51,7 @@ class Promo(models.Model):
     )
     PROMO_LENGTH = 8
 
-    id = models.CharField(primary_key=True, max_length=PROMO_LENGTH, default=get_promo)
+    id = models.CharField(primary_key=True, max_length=PROMO_LENGTH, default=generate_promo)
     period = models.CharField(max_length=15, choices=PERIOD_CHOICES, default=DAY7)
     subscription = models.OneToOneField(Subscription, models.CASCADE, null=True)
     active_until = models.DateTimeField(default=datetime.max)
@@ -62,7 +62,6 @@ class Promo(models.Model):
         return datetime.now() <= self.active_until
 
     def issue(self, user):
-        # TODO Что делать, если уже имеется активная подписка?
         if self.period == Promo.DAY7:
             delta = relativedelta(days=7)
         elif self.period == Promo.MONTH1:
