@@ -17,13 +17,11 @@ from django.contrib import admin
 from django.urls import include, path
 
 from . import views, telegram_bot
-from .api.answerorpaybot.views import webhook as answerorpay_webhook
 from rakhimovse.datradebot.views import webhook as datradebot_webhook
 
 urlpatterns = [
-    path(telegram_bot.ANSWERORPAYBOT_TOKEN, answerorpay_webhook),
     path(telegram_bot.DATRADEBOT_TOKEN, datradebot_webhook),
     path('', views.index),
-    path('api/', include('rakhimovse.api.urls')),
+    path('rakhimovse_blog/', include('rakhimovse.rakhimovse_blog.urls')),
     path('admin/', admin.site.urls),
 ]
