@@ -20,6 +20,10 @@ def get_main_menu_keyboard():
             ('promo', 'Промокод'),
         ],
         [
+            ('free_channel', 'Бесплатный канал'),
+            ('feedback', 'Отзывы'),
+        ],
+        [
             ('faq', 'FAQ'),
             ('settings:menu', 'Настройки'),
         ],

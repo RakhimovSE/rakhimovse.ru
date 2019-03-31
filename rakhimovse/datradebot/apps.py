@@ -36,7 +36,7 @@ class DatradebotConfig(AppConfig):
             CallbackQueryHandler(h.main_menu_callback_handler, pattern=r'^main:menu$'),
             CallbackQueryHandler(h.partner_menu_callback_handler, pattern=r'^partner:menu$'),
             CallbackQueryHandler(h.payment_menu_callback_handler, pattern=r'^payment:menu$'),
-            CallbackQueryHandler(h.about_us_callback_handler, pattern=r'^about_us$'),
+            CallbackQueryHandler(h.about_us_info_callback_handler, pattern=r'^about_us$'),
             CallbackQueryHandler(h.faq_callback_handler, pattern=r'^faq$'),
             ConversationHandler(
                 entry_points=[CallbackQueryHandler(h.promo_callback_handler, pattern=r'^promo$')],
@@ -52,6 +52,9 @@ class DatradebotConfig(AppConfig):
             ),
             CallbackQueryHandler(h.partner_info_callback_handler, pattern=r'^partner_info$'),
             CallbackQueryHandler(h.exchange_info_callback_handler, pattern=r'^exchange_info$'),
+            CallbackQueryHandler(h.ref_link_callback_handler, pattern=r'^ref_link$'),
+            CallbackQueryHandler(h.free_channel_callback_handler, pattern=r'^free_channel$'),
+            CallbackQueryHandler(h.feedback_callback_handler, pattern=r'^feedback$'),
             CallbackQueryHandler(h.unknown_callback_handler, pattern=r''),
             MessageHandler(Filters.private, h.unknown_message_handler),
         ]

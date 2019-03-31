@@ -6,15 +6,15 @@ from rakhimovse.datradebot import keyboards
 from rakhimovse.datradebot.helpers import CurrencyEnum
 
 
-def send_start_message(update, context):
-    user, created = get_or_create_user(update.message, context.args)
+def send_start_message(message, context):
+    user, created = get_or_create_user(message, context.args)
     if created and user.inviter:
         try:
             context.bot.send_message(user.inviter.id, 'Поздравляем! У вас новый реферал')
         except:
             pass
     context.bot.send_message(
-        chat_id=update.message.chat_id,
+        chat_id=message.chat_id,
         text='Привет, {}!'.format(user.first_name),
         reply_markup=keyboards.get_main_menu_keyboard(),
     )
@@ -116,6 +116,10 @@ def get_subscription_info(user):
 
 def get_partner_info():
     return render_to_string('partner-info.wiki')
+
+
+def get_about_us_info():
+    return render_to_string('about-us-info.wiki')
 
 
 def get_exchange_info():
