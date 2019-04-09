@@ -20,7 +20,7 @@ class DatradebotRouter(object):
         Allow relations if a model in the datradebot app is involved.
         """
         if obj1._meta.app_label == 'datradebot' or obj2._meta.app_label == 'datradebot':
-           return True
+            return True
         return None
 
     def allow_migrate(self, db, app_label, model=None, **hints):

@@ -17,16 +17,48 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Promo',
             fields=[
-                ('id', models.CharField(default=rakhimovse.datradebot.models.generate_promo, max_length=8, primary_key=True, serialize=False)),
-                ('period', models.CharField(choices=[('day7', '7 days'), ('month1', '1 month'), ('month3', '3 months'), ('month6', '6 months'), ('month12', '12 months')], default='day7', max_length=15)),
-                ('active_until', models.DateTimeField(default=datetime.datetime(9999, 12, 31, 23, 59, 59, 999999))),
+                (
+                    'id',
+                    models.CharField(
+                        default=rakhimovse.datradebot.models.generate_promo,
+                        max_length=8,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    'period',
+                    models.CharField(
+                        choices=[
+                            ('day7', '7 days'),
+                            ('month1', '1 month'),
+                            ('month3', '3 months'),
+                            ('month6', '6 months'),
+                            ('month12', '12 months'),
+                        ],
+                        default='day7',
+                        max_length=15),
+                ),
+                (
+                    'active_until',
+                    models.DateTimeField(
+                        default=datetime.datetime(9999, 12, 31, 23, 59, 59, 999999)),
+                ),
                 ('created', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
             name='Subscription',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('active_until', models.DateTimeField()),
             ],
@@ -40,17 +72,32 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(max_length=255)),
                 ('wallet', models.FloatField(default=0)),
                 ('registered', models.DateTimeField(auto_now_add=True)),
-                ('inviter', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='datradebot.User')),
+                (
+                    'inviter',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to='datradebot.User',
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
             model_name='subscription',
             name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='datradebot.User'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='datradebot.User',
+            ),
         ),
         migrations.AddField(
             model_name='promo',
             name='subscription',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='datradebot.Subscription'),
+            field=models.OneToOneField(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='datradebot.Subscription',
+            ),
         ),
     ]
