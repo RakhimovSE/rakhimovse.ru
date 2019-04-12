@@ -1,0 +1,9 @@
+coinbase
+google_auth_oauthlib
+requests
+Django
+python_telegram_bot==12.0.0b1
+python_dateutil
+protobuf
+google_api_python_client
+djangorestframework
