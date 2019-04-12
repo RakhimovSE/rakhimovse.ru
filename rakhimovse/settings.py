@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+from __future__ import absolute_import, unicode_literals
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -23,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'xi)fenqi41%4cu_#ax_)^qlo5yk76=e1ez8k)4=62m@9c^_j%-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.rakhimovse.ru', '34.209.125.44']
+ALLOWED_HOSTS = ['127.0.0.1', '.rakhimovse.ru', '34.214.64.5']
 
 
 # Application definition
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_results',
+    'django_celery_beat',
     'rest_framework',
     'rakhimovse.datradebot.apps.DatradebotConfig',
 ]
@@ -80,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'rakhimovse',
-        'USER': 'root',
+        'USER': 'ubuntu',
         'PASSWORD': '8dT1ajHJlzhY',
         'HOST': 'localhost',
         'PORT': '',
@@ -88,7 +91,7 @@ DATABASES = {
     'datradebot_db': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'datradebot_db',
-        'USER': 'root',
+        'USER': 'ubuntu',
         'PASSWORD': '8dT1ajHJlzhY',
         'HOST': 'localhost',
         'PORT': '',
@@ -144,3 +147,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+
+
+# Celery
+
+CELERY_BROKER_URL = 'amqp://admin:RPM3DshYy9z4@localhost:5672/adminvhost'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
